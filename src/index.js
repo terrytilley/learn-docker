@@ -1,7 +1,10 @@
 import app from './server';
+import models from './models';
 
-const PORT = process.env.PORT || 8000;
+const port = process.env.PORT || 8000;
 
-app.listen(PORT, () =>
-  console.log(`🚀 Server running... http://localhost:${PORT}`)
-);
+models.sequelize.sync({ force: true }).then(() => {
+  app.listen({ port }, () => {
+    console.log(`🚀 Server ready at http://localhost:${port}`);
+  });
+});
