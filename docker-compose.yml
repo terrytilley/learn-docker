@@ -1,13 +1,26 @@
 version: '3.7'
 services:
-  app:
+  db:
+    image: postgres
+    restart: always
+    env_file:
+      - '.env'
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+  server:
     container_name: learn-docker
     restart: always
+    depends_on:
+      - db
     build:
       context: '.'
       args:
         - NODE_ENV=development
     command: npm run dev
+    env_file:
+      - '.env'
     ports:
       - '8000:8000'
     volumes:

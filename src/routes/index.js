@@ -4,10 +4,11 @@ import models from '../models';
 const router = express.Router();
 
 router.get('/', async (req, res) => {
-  const todos = await models.Todo.findAll().map(({ id, text, completed }) => {
-    return { id, text, completed };
-  });
-  return res.status(200).json({ todos });
+  console.log(process.env.POSTGRES_DB);
+  // const todos = await models.Todo.findAll().map(({ id, text, completed }) => {
+  //   return { id, text, completed };
+  // });
+  return res.status(200).json({ todos: [] });
 });
 
 router.post('/', async (req, res) => {
